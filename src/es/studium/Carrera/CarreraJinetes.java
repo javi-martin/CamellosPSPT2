@@ -4,15 +4,18 @@ public class CarreraJinetes
 {
 	private static int distanciaCarrera;
 
-	private int numJinetes;
+	public static int numJinetes;
 
 	//public Jinete camello;
 	public static  int posicionCabeza=0;
 
 
-	public static int getPosicionCabeza()
+	public int getPosicionCabeza()
 	{
 		return posicionCabeza;
+	}
+	public void setPosicionCabeza(int posCamello) {
+		posicionCabeza = posCamello;
 	}
 	public synchronized static void setPosicionCabeza(int posCamello[])
 	{
@@ -38,13 +41,13 @@ public class CarreraJinetes
 		CarreraJinetes.distanciaCarrera = distanciaCarrera;
 
 	}
-	public int getNumJinetes()
+	public static int getNumJinetes()
 	{
 		return numJinetes;
 	}
-	public void setNumJinetes(int numJinetes)
+	public static void setNumJinetes(int num)
 	{
-		this.numJinetes = numJinetes;
+		numJinetes = num;
 	}
 
 

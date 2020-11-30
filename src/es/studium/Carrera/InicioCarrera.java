@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 public class InicioCarrera
 {
-
+	public static CarreraJinetes carrera;
 	public static void main(String[] args) throws InterruptedException
 	{
 		int distancia=0;
@@ -16,8 +16,8 @@ public class InicioCarrera
 		
 		try
 		{
-			CarreraJinetes carrera = new CarreraJinetes();
 			
+			carrera = new CarreraJinetes();
 			
 			System.out.println("Escribe el número de jinetes de la carrera");
 			camellos = Integer.parseInt(teclado.readLine());
@@ -25,13 +25,12 @@ public class InicioCarrera
 			distancia = Integer.parseInt(teclado.readLine());
 			carrera.setDistanciaCarrera(distancia);
 			carrera.setNumJinetes(camellos);
-			System.out.println(camellos);
-			for (int i=0; i<carrera.getNumJinetes();i++) {
+			System.out.println("Número de participantes "+camellos);
+			System.out.println();
+			for (int i=0; i<CarreraJinetes.getNumJinetes();i++) {
 				
-				Jinete j = new Jinete("Camello "+ (i+1));
-				
-				
-				
+				Jinete j = new Jinete((i+1));
+								
 				
 				j.start();
 				
