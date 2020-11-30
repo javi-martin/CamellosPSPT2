@@ -30,13 +30,11 @@ public class InicioCarrera
 				
 				Jinete j = new Jinete("Camello "+ (i+1));
 				
+				
+				
+				
 				j.start();
-//				if (j.avanceTrayecto(j) < CarreraJinetes.distanciaCarrera){
-//					
-//					System.out.println(j.getName()+ "fff");
-//					
-//				}
-					
+				
 							}
 						
 			teclado.close();

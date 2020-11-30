@@ -1,5 +1,7 @@
 package es.studium.Carrera;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Jinete extends Thread
@@ -14,7 +16,7 @@ public class Jinete extends Thread
 	int lanzamiento=0;
 	public int quedan = 0;
 	int tam = carrera.getNumJinetes();
-	private static Jinete[] camell;
+	public static ArrayList<Jinete> camell;
 
 
 	//int restante = 0;
@@ -24,14 +26,15 @@ public class Jinete extends Thread
 		this.nombre = name;
 	}
 
-	public Jinete(Jinete[] cam){
-
-		for (int i = 0; i < cam.length; i++)
-		{
-			camell[i]= Jinete.this;
-		}
-	}
+	
+	
 	public void run() {
+		
+//		listadoJinetes(camell);
+//		for (Jinete jinete : camell)
+//		{
+//			System.out.println(jinete);
+//		}
 		System.out.println("Comienza el camello "+ nombre);
 		avance = carrera.getDistanciaCarrera() - posicionActual(lanzamiento);		
 		while(!CarreraJinetes.finCarrera) {
@@ -41,6 +44,9 @@ public class Jinete extends Thread
 	}
 
 	public synchronized void progresoCarrera(int lanzamiento) {	
+		
+//		Jinete pos = new Jinete(camell);
+		
 		carrera.setDistanciaCarrera(avance);
 		if (carrera.getDistanciaCarrera()>=lanzamiento) {
 			System.out.println(nombre + " avanza "+ lanzamiento 
@@ -52,6 +58,7 @@ public class Jinete extends Thread
 					+ " metros del final " + nombre + " esta a "+ carrera.posicionCabeza);
 			CarreraJinetes.finCarrera = true;
 			System.out.println("Fin de carrera, ha ganado el "+ nombre) ;
+
 			System.exit(1);
 		}
 
@@ -75,6 +82,19 @@ public class Jinete extends Thread
 		return metros;
 
 	}
+	
+//	public ArrayList<Jinete> listadoJinetes(ArrayList<Jinete> cam){
+//
+//		
+//		for (int i = 0; i < cam.size(); i++)
+//		{
+//			cam = new ArrayList<Jinete>(i);
+//			
+//			cam.add(this);
+//		}
+//		camell = cam;
+//		return camell;
+//	}
 	//	public void comprobarPosicion(int posicion)	{
 	//		
 	//		for (int i = 0; i <tam; i++)
@@ -83,21 +103,21 @@ public class Jinete extends Thread
 	//			
 	//		}
 	//	}
-	public String firstPosition(Jinete[] pos) {
-		String nombre="";
+//	public String firstPosition(Jinete[] pos) {
+//		String nombre="";
+//
+//		for (int i = 0; i < camell.length; i++)
+//		{
+//			if (pos[i]!=pos[i+1]) {
+//				System.out.println(pos[i].toString());
+//			}else {
+//				System.out.println(pos[i+1].toString());
+//			}
+//		}
+//
+//		return nombre;
 
-		for (int i = 0; i < camell.length; i++)
-		{
-			if (pos[i]!=pos[i+1]) {
-				System.out.println(pos[i].toString());
-			}else {
-				System.out.println(pos[i+1].toString());
-			}
-		}
-
-		return nombre;
-
-	}
+//	}
 	//	public int avanceTrayecto(Jinete o)
 	//	{
 	//		int resultado=0;		
@@ -110,6 +130,24 @@ public class Jinete extends Thread
 	//
 	//		return resultado;
 	//	}
+	
+//	//Gracias a este método he conseguido aislar la posicion del que va el primero
+//		public int primeraPosicion() {
+//			int primero=0;
+//		
+//			//Bucle que recorre todo el listado de Jinetes
+//			for (int i = 0; i < ListadoJinetes.length; i++)
+//			{
+//				//Mediante esta condición conseguimos capturar el número del Jinete que ha avanzado más.
+//				if (ListadoJinetes[i] > primero) {
+//					//capturamos el número del Jinete más avanzado
+//					primero = ListadoJinetes[i];
+//				}
+//			}
+//			//devolvemos el número del que va en primera posición 
+//			return primero;
+//			
+//		}
 	public synchronized int lanzarBola () {
 		int resultado = 0;
 		Random aleatorio = new Random();
@@ -188,5 +226,6 @@ public class Jinete extends Thread
 			return negativo;
 		}
 	}
+	
 
 }
