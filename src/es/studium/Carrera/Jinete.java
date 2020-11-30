@@ -9,10 +9,10 @@ public class Jinete extends Thread
 	private int nombre;
 //	private int i = 0;
 	//private int trayectoRecorrido = 0;
-	int distanciaCarrera = carrera.getDistanciaCarrera();
+//	int distanciaCarrera = carrera.getDistanciaCarrera();
 	int avance=0;
 	int lanzamiento=0;
-	public int quedan = 0;
+//	public int quedan = 0;
 //	static int tam = carrera.getNumJinetes();
 	public static int listaCamellos[] = new int[carrera.getNumJinetes()];
 
@@ -27,16 +27,10 @@ public class Jinete extends Thread
 	
 	
 	public void run() {
-		
-//		listadoJinetes(camell);
-//		for (Jinete jinete : camell)
-//		{
-//			System.out.println(jinete);
-//		}
-		
+				
 		System.out.println("Comienza el camello "+ nombre);
 		avance = carrera.getDistanciaCarrera() - posicionActual(lanzamiento);
-		primeraPosicion();
+//		primeraPosicion();
 		while(!CarreraJinetes.finCarrera) {
 		
 			lanzamiento = lanzarBola();			
@@ -67,7 +61,7 @@ public class Jinete extends Thread
 				{
 					System.out.println(i+"º puesto para Camello ");
 				}
-				
+				CarreraJinetes.finCarrera=true;
 				System.exit(1);
 			
 		}

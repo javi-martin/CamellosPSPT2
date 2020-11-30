@@ -10,6 +10,19 @@ public class CarreraJinetes
 	public static  int posicionCabeza=0;
 
 
+	
+//	public synchronized static void setPosicionCabeza(int posCamello[])
+//	{
+//		for (int i = 0; i < posCamello.length; i++)
+//		{
+//
+//			CarreraJinetes.posicionCabeza = posCamello[i];
+//		}
+//
+//	}
+	public static boolean finCarrera = false;
+
+
 	public int getPosicionCabeza()
 	{
 		return posicionCabeza;
@@ -17,19 +30,6 @@ public class CarreraJinetes
 	public void setPosicionCabeza(int posCamello) {
 		posicionCabeza = posCamello;
 	}
-	public synchronized static void setPosicionCabeza(int posCamello[])
-	{
-		for (int i = 0; i < posCamello.length; i++)
-		{
-
-			CarreraJinetes.posicionCabeza = posCamello[i];
-		}
-
-	}
-	public static boolean finCarrera = false;
-
-
-
 
 	public int getDistanciaCarrera()
 	{
@@ -49,7 +49,6 @@ public class CarreraJinetes
 	{
 		numJinetes = num;
 	}
-
 
 
 }

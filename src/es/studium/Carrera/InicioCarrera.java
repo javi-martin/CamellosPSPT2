@@ -29,10 +29,10 @@ public class InicioCarrera
 			System.out.println();
 			for (int i=0; i<CarreraJinetes.getNumJinetes();i++) {
 				
-				Jinete j = new Jinete((i+1));
+				Jinete hiloJinete = new Jinete((i+1));
 								
 				
-				j.start();
+				hiloJinete.start();
 				
 							}
 						
