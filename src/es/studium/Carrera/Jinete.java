@@ -81,7 +81,7 @@ public class Jinete extends Thread
 	 
 	public int[] posicionFinal(int[] actual) {
 		
-		int[] posicionFinal;
+		int[] posicionFinal = new int[actual.length];
 		int max=actual[0];
 		
 		for (int i = 0; i < actual.length; i++)
@@ -92,7 +92,7 @@ public class Jinete extends Thread
 				
 			}
 		}
-		return posicionFinal[];
+		return posicionFinal;
 		
 		
 		
