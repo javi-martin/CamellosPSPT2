@@ -1,5 +1,6 @@
 package es.studium.Carrera;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Jinete extends Thread
@@ -12,6 +13,8 @@ public class Jinete extends Thread
 //	int distanciaCarrera = carrera.getDistanciaCarrera();
 	int avance=0;
 	int lanzamiento=0;
+	int posicion = 0;
+	int posicionFinal =0;
 //	public int quedan = 0;
 //	static int tam = carrera.getNumJinetes();
 	public static int listaCamellos[] = new int[carrera.getNumJinetes()];
@@ -44,13 +47,14 @@ public class Jinete extends Thread
 		
 		carrera.setDistanciaCarrera(avance);
 		
-		listaCamellos[(nombre - 1)] = nombre;
+		listaCamellos[(nombre - 1)] = posicionActual(lanzamiento);
 		if (carrera.getDistanciaCarrera()>lanzamiento) {
 			
 			
 			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
 					+ " metros del final " +" Camello "+ nombre);
+			
 		} else if (carrera.getDistanciaCarrera()==lanzamiento) {
 				CarreraJinetes.finCarrera=true;
 				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
@@ -62,10 +66,10 @@ public class Jinete extends Thread
 				System.out.println("¡¡¡ Ha ganado el Camello "+ nombre + " !!!");
 				System.out.println();
 				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
-				for (int i = 1; i < listaCamellos.length; i++)
+				for (int i = 0; i < listaCamellos.length; i++)
 				{
-					int posicion = listaCamellos[i];
-					System.out.println(i+"º puesto para Camello "+ posicion);
+					posicionFinal = listaCamellos[i];
+					System.out.println((i+1)+"º puesto para Camello "+ posicionFinal);
 				}
 				
 				System.exit(1);
@@ -73,15 +77,29 @@ public class Jinete extends Thread
 		}
 
 	}
-	private int posicionActual(int lanzamiento) {
-
-		int posicion = 0;
-		if (carrera.getDistanciaCarrera() >= 0) {
-			posicion +=lanzamiento;
-
-		}else {
-			System.out.println("Fin");
+	
+	 
+	public int[] posicionFinal(int[] actual) {
+		
+		int[] posicionFinal;
+		int max=actual[0];
+		
+		for (int i = 0; i < actual.length; i++)
+		{
+			if (max<actual[i]) {
+				
+				posicionFinal[i]=i;
+				
+			}
 		}
+		return posicionFinal[];
+		
+		
+		
+	}
+	private int posicionActual(int lanzamiento) {
+	
+			posicion +=lanzamiento;
 		return posicion;
 
 	}
@@ -108,20 +126,20 @@ public class Jinete extends Thread
 	//			
 	//		}
 	//	}
-	public int ordenarPosiciones(int[] pos, int[] ganador) {
-		int nombre=0;
-
-		for (int i = 0; i < pos.length; i++)
-		{
-			if (ganador[i]<pos[i+1]) {
-				nombre = pos[i];
-			}else {
-				
-				nombre = pos[i];
-			}
-		}
-		return nombre;
-	}
+//	public int ordenarPosiciones(int[] pos, int[] ganador) {
+//		int nombre=0;
+//
+//		for (int i = 0; i < pos.length; i++)
+//		{
+//			if (ganador[i]<pos[i+1]) {
+//				nombre = pos[i];
+//			}else {
+//				
+//				nombre = pos[i];
+//			}
+//		}
+//		return nombre;
+//	}
 //		return nombre;
 
 
