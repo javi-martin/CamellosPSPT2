@@ -45,12 +45,17 @@ public class Jinete extends Thread
 		carrera.setDistanciaCarrera(avance);
 		
 		listaCamellos[(nombre - 1)] = nombre;
-		if (carrera.getDistanciaCarrera()>=lanzamiento) {
+		if (carrera.getDistanciaCarrera()>lanzamiento) {
+			
+			
 			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
-					+ " metros del final " +" Camello "+ nombre + " esta a ");
-		} else {
-			
+					+ " metros del final " +" Camello "+ nombre);
+		} else if (carrera.getDistanciaCarrera()==lanzamiento) {
+				CarreraJinetes.finCarrera=true;
+				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
+						+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
+						+ " metros del final " +" Camello "+ nombre);
 				System.out.println();
 				System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
 				System.out.println();
@@ -62,13 +67,13 @@ public class Jinete extends Thread
 					int posicion = listaCamellos[i];
 					System.out.println(i+"º puesto para Camello "+ posicion);
 				}
-				CarreraJinetes.finCarrera=true;
+				
 				System.exit(1);
 			
 		}
 
 	}
-	private synchronized int posicionActual(int lanzamiento) {
+	private int posicionActual(int lanzamiento) {
 
 		int posicion = 0;
 		if (carrera.getDistanciaCarrera() >= 0) {
@@ -150,7 +155,7 @@ public class Jinete extends Thread
 			return primero;
 			
 		}
-	public synchronized int lanzarBola () {
+	public int lanzarBola () {
 		int resultado = 0;
 		Random aleatorio = new Random();
 		long sleep = 1 + aleatorio.nextInt(100)*(aleatorio.nextInt(10)+1);
