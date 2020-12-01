@@ -44,7 +44,7 @@ public class Jinete extends Thread
 		
 		carrera.setDistanciaCarrera(avance);
 		
-		listaCamellos[(nombre - 1)] = avanceCamello(lanzamiento);
+		listaCamellos[(nombre - 1)] = nombre;
 		if (carrera.getDistanciaCarrera()>=lanzamiento) {
 			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
@@ -57,9 +57,10 @@ public class Jinete extends Thread
 				System.out.println("¡¡¡ Ha ganado el Camello "+ nombre + " !!!");
 				System.out.println();
 				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
-				for (int i = 1; i <= listaCamellos.length; i++)
+				for (int i = 1; i < listaCamellos.length; i++)
 				{
-					System.out.println(i+"º puesto para Camello ");
+					int posicion = listaCamellos[i];
+					System.out.println(i+"º puesto para Camello "+ posicion);
 				}
 				CarreraJinetes.finCarrera=true;
 				System.exit(1);
@@ -102,21 +103,23 @@ public class Jinete extends Thread
 	//			
 	//		}
 	//	}
-//	public String firstPosition(Jinete[] pos) {
-//		String nombre="";
-//
-//		for (int i = 0; i < camell.length; i++)
-//		{
-//			if (pos[i]!=pos[i+1]) {
-//				System.out.println(pos[i].toString());
-//			}else {
-//				System.out.println(pos[i+1].toString());
-//			}
-//		}
-//
+	public int ordenarPosiciones(int[] pos) {
+		int nombre=0;
+
+		for (int i = 0; i < pos.length; i++)
+		{
+			if (pos[i]>pos[i+1]) {
+				nombre = pos[i];
+			}else {
+				
+				nombre = pos[i];
+			}
+		}
+		return nombre;
+	}
 //		return nombre;
 
-//	}
+
 	//	public int avanceTrayecto(Jinete o)
 	//	{
 	//		int resultado=0;		
