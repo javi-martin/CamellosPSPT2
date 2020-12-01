@@ -103,12 +103,12 @@ public class Jinete extends Thread
 	//			
 	//		}
 	//	}
-	public int ordenarPosiciones(int[] pos) {
+	public int ordenarPosiciones(int[] pos, int[] ganador) {
 		int nombre=0;
 
 		for (int i = 0; i < pos.length; i++)
 		{
-			if (pos[i]>pos[i+1]) {
+			if (ganador[i]<pos[i+1]) {
 				nombre = pos[i];
 			}else {
 				
