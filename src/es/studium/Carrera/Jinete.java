@@ -46,11 +46,11 @@ public class Jinete extends Thread
 //		Jinete pos = new Jinete(camell);
 		
 		carrera.setDistanciaCarrera(avance);
+//		System.out.println("posicionActual--->"+(avance -posicionActual(lanzamiento)));
+		listaCamellos[(nombre - 1)] = (avance+posicionActual(lanzamiento));
+		System.out.println("Contenido listaCamellos posicion [nombre]--->"+listaCamellos[nombre - 1]);
+		if (carrera.getDistanciaCarrera()>lanzamiento) {			
 		
-		listaCamellos[(nombre - 1)] = posicionActual(lanzamiento);
-		if (carrera.getDistanciaCarrera()>lanzamiento) {
-			
-			
 			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
 					+ " metros del final " +" Camello "+ nombre);
@@ -131,21 +131,21 @@ public class Jinete extends Thread
 	//			
 	//		}
 	//	}
-//	public int ordenarPosiciones(int[] pos, int[] ganador) {
-//		int nombre=0;
+//	public int[] ordenarPosiciones(int[] pos, int ganador) {
+//		
 //
 //		for (int i = 0; i < pos.length; i++)
 //		{
-//			if (ganador[i]<pos[i+1]) {
+//			if (ganador<pos[i+1]) {
 //				nombre = pos[i];
 //			}else {
 //				
 //				nombre = pos[i];
 //			}
 //		}
-//		return nombre;
+//		
 //	}
-//		return nombre;
+//		return pos;
 
 
 	//	public int avanceTrayecto(Jinete o)
