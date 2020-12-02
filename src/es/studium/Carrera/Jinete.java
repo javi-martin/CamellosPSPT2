@@ -7,7 +7,7 @@ public class Jinete extends Thread
 {
 	static CarreraJinetes carrera = new CarreraJinetes();
 
-	private int nombre;
+	private int nombre, metros;
 //	private int i = 0;
 	//private int trayectoRecorrido = 0;
 //	int distanciaCarrera = carrera.getDistanciaCarrera();
@@ -48,18 +48,18 @@ public class Jinete extends Thread
 		carrera.setDistanciaCarrera(avance);
 //		System.out.println("posicionActual--->"+(avance -posicionActual(lanzamiento)));
 		listaCamellos[(nombre - 1)] = (avance+posicionActual(lanzamiento));
-		System.out.println("Contenido listaCamellos posicion [nombre]--->"+listaCamellos[nombre - 1]);
+		
 		if (carrera.getDistanciaCarrera()>lanzamiento) {			
 		
 			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
-					+ " metros del final " +" Camello "+ nombre);
+					+ " metros del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
 			
 		} else if (carrera.getDistanciaCarrera()==lanzamiento) {
 				CarreraJinetes.finCarrera=true;
 				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 						+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
-						+ " metros del final " +" Camello "+ nombre);
+						+ " metros del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
 				System.out.println();
 				System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
 				System.out.println();
@@ -108,58 +108,16 @@ public class Jinete extends Thread
 		return lugar;
 
 	}
-//	public int restanDelFinal(int metros, int lanzamiento) {
-//
-//
-//		metros -= lanzamiento;
-//		return metros;
-//
-//	}
+
 	public int avanceCamello(int tirada) {
 		
-		int variablePosicion = carrera.getPosicionCabeza();
+		int variablePosicion = getMetros();
 		int avanceJinete = variablePosicion + tirada;
-		carrera.setPosicionCabeza(avanceJinete);
+		setMetros(avanceJinete);
 		return avanceJinete;
 	}
 	
-	//	public void comprobarPosicion(int posicion)	{
-	//		
-	//		for (int i = 0; i <tam; i++)
-	//		{
-	//			
-	//			
-	//		}
-	//	}
-//	public int[] ordenarPosiciones(int[] pos, int ganador) {
-//		
-//
-//		for (int i = 0; i < pos.length; i++)
-//		{
-//			if (ganador<pos[i+1]) {
-//				nombre = pos[i];
-//			}else {
-//				
-//				nombre = pos[i];
-//			}
-//		}
-//		
-//	}
-//		return pos;
-
-
-	//	public int avanceTrayecto(Jinete o)
-	//	{
-	//		int resultado=0;		
-	//
-	//		if(distanciaCarrera<=trayectoRecorrido) {
-	//			resultado = distanciaCarrera - trayectoRecorrido;
-	//		}else {
-	//			resultado = 0;
-	//		}
-	//
-	//		return resultado;
-	//	}
+	
 	
 	//Gracias a este método he conseguido aislar la posicion del que va el primero
 		public int primeraPosicion() {
@@ -244,6 +202,34 @@ public class Jinete extends Thread
 	public void setJinete(int jinete)
 	{
 		nombre = jinete;
+	}
+
+
+
+	public int getNombre()
+	{
+		return nombre;
+	}
+
+
+
+	public void setNombre(int nombre)
+	{
+		this.nombre = nombre;
+	}
+
+
+
+	public int getMetros()
+	{
+		return metros;
+	}
+
+
+
+	public void setMetros(int metros)
+	{
+		this.metros = metros;
 	}
 
 
