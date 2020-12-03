@@ -18,8 +18,8 @@ public class Jinete extends Thread
 //	int posicionFinal =0;
 //	public int quedan = 0;
 //	static int tam = carrera.getNumJinetes();
-	public static int listaCamellos[] = new int[carrera.getNumJinetes()];
-	public static int podio[] = new int[3];
+	public static String listaCamellos[] = new String[carrera.getNumJinetes()];
+//	public static int podio[] = new int[3];
 
 	//int restante = 0;
 
@@ -48,7 +48,7 @@ public class Jinete extends Thread
 		
 		carrera.setDistanciaCarrera(avance);
 //		System.out.println("posicionActual--->"+(avance -posicionActual(lanzamiento)));
-		listaCamellos[(nombre - 1)] = avanceCamello(lanzamiento);
+		listaCamellos[(nombre - 1)] = thread(Jinete.currentThread().getName())+" " +avanceCamello(lanzamiento);
 		
 		if (carrera.getDistanciaCarrera()>lanzamiento) {			
 		
@@ -58,24 +58,43 @@ public class Jinete extends Thread
 				
 		} else if (carrera.getDistanciaCarrera()==lanzamiento) {
 				CarreraJinetes.finCarrera=true;
-				ordenarPosiciones(listaCamellos);
+				
 				
 				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 						+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
 						+ " posiciones del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
 				
-				
+//				ganador = nombre;
 				System.out.println();
 				System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
 				System.out.println();
-				System.out.println("¡¡¡ Primera posición para el Camello "+ nombre + " y a corrido a una velocidad de "+(listaCamellos[0]) + " km/h");
+				
+				System.out.println("¡¡¡ Primera posición para el Camello "+ nombre);
 				
 				System.out.println();
 				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
-				
+//				boolean ordenado = false;
 				for (int i = 1; i != listaCamellos.length; i++)
 				{
-					System.out.println("El "+(i+1)+"º jinete a corrido a una velocidad de "+ (listaCamellos[i]) + " km/h");
+//					while(!ordenado) {
+//					if (Integer.parseInt(podio((listaCamellos[i]))) == ganador) {
+//						System.out.println("El jinete " + listaCamellos[i] +" a una velocidad de " + podio((listaCamellos[i])) + " km/h");
+//					
+//					}else if ((Integer.parseInt(podio((listaCamellos[i]))) < ganador)&&
+//							(Integer.parseInt(podio((listaCamellos[i]))) > (Integer.parseInt(podio((listaCamellos[i+1])))))) {
+//						System.out.println("El jinete " + listaCamellos[i] +" a una velocidad de " + podio((listaCamellos[i])) + " km/h");
+//					}else if ((Integer.parseInt(podio((listaCamellos[i]))) < ganador)&&
+//							(Integer.parseInt(podio((listaCamellos[i]))) > (Integer.parseInt(podio((listaCamellos[i+1])))))) {
+//						System.out.println("El jinete " + listaCamellos[i] +" a una velocidad de " + podio((listaCamellos[i])) + " km/h");
+//					}else {
+//						ordenado = true;
+//					}
+//					}
+//					System.out.println(podio((listaCamellos[i]))+"<-----funcion podio()");
+					System.out.println();
+					System.out.println("El jinete " + listaCamellos[i] +" a una velocidad de " + podio((listaCamellos[i])) + " km/h");
+//					System.out.println();
+//					System.out.println(listaCamellos[i]+ "<----- listaCamello[*]");
 				}
 				
 				
@@ -89,7 +108,25 @@ public class Jinete extends Thread
 		}
 
 	}
-	
+
+	public String podio(String name) {
+		String split ="";
+		if(name.length()>=4) {
+			split = name.substring(2, 4);
+		}else {
+			split = name.substring(2, 3);
+		}
+		
+		
+		return split;
+	}
+	public String thread(String name) {
+		String split="";
+		
+		split = name.substring(7, 8);
+		return split;
+		
+	}
 	
 	public static void ordenarPosiciones(int actual[]) {
 		int cuentaIntercambios = 0;
@@ -175,23 +212,23 @@ public class Jinete extends Thread
 	
 	
 	
-	//Gracias a este método he conseguido aislar la posicion del que va el primero
-		public int primeraPosicion() {
-			int primero=0;
-		
-			//Bucle que recorre todo el listado de Jinetes
-			for (int i = 0; i < listaCamellos.length; i++)
-			{
-				//Mediante esta condición conseguimos capturar el número del Jinete que ha avanzado más.
-				if (listaCamellos[i] > primero) {
-					//capturamos el número del Jinete más avanzado
-					primero = listaCamellos[i+1];
-				}
-			}
-			//devolvemos el número del que va en primera posición 
-			return primero;
-			
-		}
+//	//Gracias a este método he conseguido aislar la posicion del que va el primero
+//		public int primeraPosicion() {
+//			int primero=0;
+//		
+//			//Bucle que recorre todo el listado de Jinetes
+//			for (int i = 0; i < listaCamellos.length; i++)
+//			{
+//				//Mediante esta condición conseguimos capturar el número del Jinete que ha avanzado más.
+//				if (listaCamellos[i] > primero) {
+//					//capturamos el número del Jinete más avanzado
+//					primero = listaCamellos[i+1];
+//				}
+//			}
+//			//devolvemos el número del que va en primera posición 
+//			return primero;
+//			
+//		}
 	public int lanzarBola () {
 		int resultado = 0;
 		Random aleatorio = new Random();
