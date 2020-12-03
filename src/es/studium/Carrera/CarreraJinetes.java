@@ -31,7 +31,7 @@ public class CarreraJinetes {
 		return numJinetes;
 	}
 
-	public static void setNumJinetes(int num) {
+	public void setNumJinetes(int num) {
 		numJinetes = num;
 	}
 }

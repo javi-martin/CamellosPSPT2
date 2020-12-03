@@ -53,10 +53,10 @@ public class Jinete extends Thread {
 				listaPodio[2] = nombre;
 			}
 
-			if (listaPodio[2] != 0 || (carrera.getNumJinetes() < 3 && listaPodio[1] != 0)) {
+			if (listaPodio[2] != 0 || (CarreraJinetes.getNumJinetes() < 3 && listaPodio[1] != 0)) {
 
 				mensajeFinCarrera(listaPodio);
-				carrera.finCarrera = true;
+				CarreraJinetes.finCarrera = true;
 
 				System.exit(1);
 			}
@@ -70,15 +70,16 @@ public class Jinete extends Thread {
 		System.out.println();
 		System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
 		System.out.println();
-
-		System.out.println("¡¡¡ Primera posición para el Camello " + listaPodio[0] + "!!!");
-		System.out.println("¡¡¡ Segunda posición para el Camello " + listaPodio[1] + "!!!");
+		System.out.println("Ha ganado el Camello "+ listaPodio[0]);
+		System.out.println();
+		System.out.println("%%%%%%%%%%   PODIO FINAL   %%%%%%%%%%%");
+		System.out.println("¡¡¡ Primera posición para el Camello " + listaPodio[0] + " !!!");
+		System.out.println("¡¡¡ Segunda posición para el Camello " + listaPodio[1] + " !!!");
 		if (listaPodio[2] != 0) {
-			System.out.println("¡¡¡ Tercera posición para el Camello " + listaPodio[2] + "!!!");
+			System.out.println("¡¡¡ Tercera posición para el Camello " + listaPodio[2] + " !!!");
 		}
 
-		System.out.println();
-		System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
+		
 	}
 
 	public int lanzarBola() {
