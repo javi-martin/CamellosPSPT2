@@ -14,11 +14,12 @@ public class Jinete extends Thread
 	int avance=0;
 	int lanzamiento=0;
 	int posicion = 0;
+	int ganador, segundo, tercero = 0;
 //	int posicionFinal =0;
 //	public int quedan = 0;
 //	static int tam = carrera.getNumJinetes();
 	public static int listaCamellos[] = new int[carrera.getNumJinetes()];
-	
+	public static int podio[] = new int[3];
 
 	//int restante = 0;
 
@@ -47,7 +48,7 @@ public class Jinete extends Thread
 		
 		carrera.setDistanciaCarrera(avance);
 //		System.out.println("posicionActual--->"+(avance -posicionActual(lanzamiento)));
-		listaCamellos[(nombre - 1)] = (avance+posicionActual(lanzamiento));
+		listaCamellos[(nombre - 1)] = avanceCamello(lanzamiento);
 		
 		if (carrera.getDistanciaCarrera()>lanzamiento) {			
 		
@@ -60,18 +61,22 @@ public class Jinete extends Thread
 				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
 						+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
 						+ " metros del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
+				ganador = avanceCamello(lanzamiento);
 				System.out.println();
 				System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
 				System.out.println();
 				System.out.println("¡¡¡ Ha ganado el Camello "+ nombre + " !!!");
+				
 				System.out.println();
 				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
-				
+				ordenarPosiciones(listaCamellos);
 				for (int i = 0; i < listaCamellos.length; i++)
 				{
-					
-					System.out.println((i+1)+"º puesto para Camello "+ posicionFinal(listaCamellos)[i]);
+					System.out.println((i+1)+"º puesto para Camello "+ listaCamellos[i]);
 				}
+				System.out.println();
+				
+				
 				
 				System.exit(1);
 			
@@ -79,23 +84,68 @@ public class Jinete extends Thread
 
 	}
 	
-	 
+	
+	public static void ordenarPosiciones(int actual[]) {
+		int cuentaIntercambios = 0;
+		
+		for (boolean ordenado = false; !ordenado;){
+			//Mientras no se cumpla la condición anterior seguirá dando vueltas hasta que se ordene
+			for (int i = 0; i < actual.length - 1; i++)
+			{
+				if (actual[i] < actual[i+1]) {
+					//Intercambiamos los valores
+					int variableAuxiliar = actual[i];
+					actual[i] = actual [i + 1];
+					actual[i +1] = variableAuxiliar;
+					//Ahora le indicamos que se ha producido un cambio
+					cuentaIntercambios++;
+				}
+				
+			}
+			//Con esta condición comprobamos si no hay intercambios, lo que significa que está ordenado
+			if(cuentaIntercambios == 0) {
+				ordenado = true;
+			}
+			//Inicializamos de nuevo esta variable para que empieze de nuevo a contar
+			cuentaIntercambios = 0;
+		}
+		
+	}
+	
+//	public static int[] posicionFinal(int[] arreglo)
+//    {
+//      int auxiliar;
+//      int[] arregloOrdenado;
+//      for(int i = 2; i < arreglo.length; i++)
+//      {
+//        for(int j = 0;j < arreglo.length-i;j++)
+//        {
+//          if(arreglo[j] > arreglo[j+1])
+//          {
+//            auxiliar = arreglo[j];
+//            arreglo[j] = arreglo[j+1];
+//            arreglo[j+1] = auxiliar;
+//          }   
+//        }
+//      }
+//      arregloOrdenado = arreglo;
+//      return arregloOrdenado;
+//    }
+//	 
 	public int[] posicionFinal(int[] actual) {
 		
 		int [] posicionFinal = new int[actual.length];
-		int max = actual[0];
-		System.out.println("Valor de max ---->" + max);
+		
 		for (int i = 0; i < posicionFinal.length; i++)
 		{
-			if (max < actual[i]) {
-				
-				posicionFinal[i]=i;
-				
-			}else {
-				
-				posicionFinal[i]=actual[i];
-			}
+			posicionFinal[i] = i+1;
+			
 		}
+//		for (int i = 0; i < posicionFinal.length; i++)
+//		{
+//			System.out.println("Contenido posiciones posicionFinal["+i+"]"+posicionFinal[i]);
+//		}
+		
 		return posicionFinal;
 		
 
