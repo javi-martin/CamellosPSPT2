@@ -1,247 +1,146 @@
 package es.studium.Carrera;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-public class Jinete extends Thread
-{
+public class Jinete extends Thread {
 	static CarreraJinetes carrera = new CarreraJinetes();
 
 	private int nombre, metros;
-//	private int i = 0;
-	//private int trayectoRecorrido = 0;
-//	int distanciaCarrera = carrera.getDistanciaCarrera();
-	int avance=0;
-	int lanzamiento=0;
-	int posicion = 0;
-//	int posicionFinal =0;
-//	public int quedan = 0;
-//	static int tam = carrera.getNumJinetes();
-	public static int listaCamellos[] = new int[carrera.getNumJinetes()];
-	
+	int distanciaRestante = carrera.getDistanciaCarrera();
+	int lanzamiento;
+	public static int listaPodio[] = { 0, 0, 0 };
 
-	//int restante = 0;
-
-	public Jinete (int name) {
+	public Jinete(int name) {
 
 		this.nombre = name;
 	}
 
-	
-	
 	public void run() {
-				
-		System.out.println("Comienza el camello "+ nombre);
-		avance = carrera.getDistanciaCarrera() - posicionActual(lanzamiento);
-//		primeraPosicion();
-		while(!CarreraJinetes.finCarrera) {
-		
-			lanzamiento = lanzarBola();			
-			progresoCarrera(lanzamiento); 			
+
+		System.out.println("Comienza el camello " + nombre);
+		while (!CarreraJinetes.finCarrera && distanciaRestante > 0) {
+
+			lanzamiento = lanzarBola();
+			progresoCarrera(lanzamiento);
 		}
 	}
 
-	public synchronized void progresoCarrera(int lanzamiento) {	
-		
-//		Jinete pos = new Jinete(camell);
-		
-		carrera.setDistanciaCarrera(avance);
-//		System.out.println("posicionActual--->"+(avance -posicionActual(lanzamiento)));
-		listaCamellos[(nombre - 1)] = (avance+posicionActual(lanzamiento));
-		
-		if (carrera.getDistanciaCarrera()>lanzamiento) {			
-		
-			System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
-					+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
-					+ " metros del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
-			
-		} else if (carrera.getDistanciaCarrera()==lanzamiento) {
-				CarreraJinetes.finCarrera=true;
-				System.out.println("Camello "+nombre + " avanza "+ lanzamiento 
-						+" metros, se encuentra a "+ (avance -=posicionActual(lanzamiento))  
-						+ " metros del final " +" y a avanzado "+ avanceCamello(lanzamiento)+" metros");
-				System.out.println();
-				System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
-				System.out.println();
-				System.out.println("¡¡¡ Ha ganado el Camello "+ nombre + " !!!");
-				System.out.println();
-				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
-				
-				for (int i = 0; i < listaCamellos.length; i++)
-				{
-					
-					System.out.println((i+1)+"º puesto para Camello "+ posicionFinal(listaCamellos)[i]);
-				}
-				
+	public synchronized void progresoCarrera(int lanzamiento) {
+
+		if (distanciaRestante > lanzamiento) {
+
+			distanciaRestante -= lanzamiento;
+
+			System.out.println("Camello " + nombre + " avanza " + lanzamiento + " metros, se encuentra a "
+					+ distanciaRestante + " metros del final ");
+
+		} else if (distanciaRestante <= lanzamiento) {
+
+			System.out.println();
+
+			distanciaRestante = 0;
+
+			System.out.println("Camello " + nombre + " avanza " + lanzamiento + " metros, llega a la meta");
+
+			if (listaPodio[0] == 0) {
+
+				listaPodio[0] = nombre;
+			} else if (listaPodio[1] == 0) {
+
+				listaPodio[1] = nombre;
+			} else if (listaPodio[2] == 0) {
+
+				listaPodio[2] = nombre;
+			}
+
+			if (listaPodio[2] != 0 || (carrera.getNumJinetes() < 3 && listaPodio[1] != 0)) {
+
+				mensajeFinCarrera(listaPodio);
+				carrera.finCarrera = true;
+
 				System.exit(1);
-			
-		}
-
-	}
-	
-	 
-	public int[] posicionFinal(int[] actual) {
-		
-		int [] posicionFinal = new int[actual.length];
-		int max = actual[0];
-		System.out.println("Valor de max ---->" + max);
-		for (int i = 0; i < posicionFinal.length; i++)
-		{
-			if (max < actual[i]) {
-				
-				posicionFinal[i]=i;
-				
-			}else {
-				
-				posicionFinal[i]=actual[i];
 			}
-		}
-		return posicionFinal;
-		
 
-	}
-	private int posicionActual(int lanzamiento) {
-	int lugar = 0;
-		if (carrera.getDistanciaCarrera() >=0) {
-			lugar +=lanzamiento;
+			System.out.println();
 		}
-		return lugar;
 
 	}
 
-	public int avanceCamello(int tirada) {
-		
-		int variablePosicion = getMetros();
-		int avanceJinete = variablePosicion + tirada;
-		setMetros(avanceJinete);
-		return avanceJinete;
-	}
-	
-	
-	
-	//Gracias a este método he conseguido aislar la posicion del que va el primero
-		public int primeraPosicion() {
-			int primero=0;
-		
-			//Bucle que recorre todo el listado de Jinetes
-			for (int i = 0; i < listaCamellos.length; i++)
-			{
-				//Mediante esta condición conseguimos capturar el número del Jinete que ha avanzado más.
-				if (listaCamellos[i] > primero) {
-					//capturamos el número del Jinete más avanzado
-					primero = listaCamellos[i+1];
-				}
-			}
-			//devolvemos el número del que va en primera posición 
-			return primero;
-			
+	private void mensajeFinCarrera(int[] listaPodio) {
+		System.out.println();
+		System.out.println("%%%%%%%%%%  FIN DE CARRERA  %%%%%%%%%%%");
+		System.out.println();
+
+		System.out.println("¡¡¡ Primera posición para el Camello " + listaPodio[0] + "!!!");
+		System.out.println("¡¡¡ Segunda posición para el Camello " + listaPodio[1] + "!!!");
+		if (listaPodio[2] != 0) {
+			System.out.println("¡¡¡ Tercera posición para el Camello " + listaPodio[2] + "!!!");
 		}
-	public int lanzarBola () {
+
+		System.out.println();
+		System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
+	}
+
+	public int lanzarBola() {
 		int resultado = 0;
 		Random aleatorio = new Random();
-		long sleep = 1 + aleatorio.nextInt(100)*(aleatorio.nextInt(10)+1);
+		long sleep = 1 + aleatorio.nextInt(1000) * (aleatorio.nextInt(10) + 1);
 		int lanzamiento = 1 + aleatorio.nextInt(100);
-		if(lanzamiento <= 30) {
+		if (lanzamiento <= 30) {
 			resultado = 0;
-			try
-			{
+			try {
 				Thread.sleep(sleep);
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
+			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-		}else if (lanzamiento <= 70) {
+		} else if (lanzamiento <= 70) {
 			resultado = 1;
-			try
-			{
-
+			try {
 				Thread.sleep(sleep);
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
+			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-		}else if (lanzamiento <= 90) {
+		} else if (lanzamiento <= 90) {
 			resultado = 2;
-			try
-			{
-
+			try {
 				Thread.sleep(sleep);
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
+			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-		}else {
+		} else {
 			resultado = 3;
-			try
-			{
-
+			try {
 				Thread.sleep(sleep);
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
+			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-			//restante = restante - resultado;
 		}
 
 		return resultado;
 	}
-	//	public int restante ( int lanz) {
-	//
-	//		distanciaCarrera -= lanz;
-	//
-	//		return distanciaCarrera;
-	//	}
-	public int getJinete()
-	{
+
+	public int getJinete() {
 		return nombre;
 	}
-	public void setJinete(int jinete)
-	{
+
+	public void setJinete(int jinete) {
 		nombre = jinete;
 	}
 
-
-
-	public int getNombre()
-	{
+	public int getNombre() {
 		return nombre;
 	}
 
-
-
-	public void setNombre(int nombre)
-	{
+	public void setNombre(int nombre) {
 		this.nombre = nombre;
 	}
 
-
-
-	public int getMetros()
-	{
+	public int getMetros() {
 		return metros;
 	}
 
-
-
-	public void setMetros(int metros)
-	{
+	public void setMetros(int metros) {
 		this.metros = metros;
 	}
-
-
-
-	public static int fijarCero(int negativo) {
-		if (negativo<=0) {
-			return 0;
-		}
-		else {
-			return negativo;
-		}
-	}
-	
 
 }
