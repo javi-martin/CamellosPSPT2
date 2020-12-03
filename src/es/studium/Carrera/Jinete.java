@@ -19,7 +19,7 @@ public class Jinete extends Thread
 //	public int quedan = 0;
 //	static int tam = carrera.getNumJinetes();
 	public static String listaCamellos[] = new String[carrera.getNumJinetes()];
-//	public static int podio[] = new int[3];
+	public static int listaPodio[] = new int[listaCamellos.length];
 
 	//int restante = 0;
 
@@ -74,6 +74,13 @@ public class Jinete extends Thread
 				System.out.println();
 				System.out.println("%%%%%%%%%%    PODIO FINAL   %%%%%%%%%%%");
 //				boolean ordenado = false;
+				for (int i = 0; i < listaPodio.length; i++)
+				{
+					for (int j = 0; j < listaCamellos.length; j++)
+					{
+						listaPodio[i]= Integer.parseInt(podio((listaCamellos[j])));
+					}
+				}
 				for (int i = 1; i != listaCamellos.length; i++)
 				{
 //					while(!ordenado) {
@@ -108,6 +115,7 @@ public class Jinete extends Thread
 		}
 
 	}
+	
 
 	public String podio(String name) {
 		String split ="";
